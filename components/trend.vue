@@ -11,7 +11,7 @@
         class="h-8 w-full"
         v-if="loading"
       />
-      <div v-else>{{ amount }}</div>
+      <div v-else>{{ currency }}</div>
     </div>
     <div>
       <USkeleton
@@ -52,6 +52,8 @@ const trendingUp = computed(
 const icon = computed(
   () => trendingUp.value ? 'i-heroicons-arrow-trending-up' : 'i-heroicons-arrow-trending-down'
 )
+
+const { currency } = useCurrency(props.amount)
 
 const percentageTrend = computed(() => {
   if (props.amount === 0 || props.lastAmount === 0) return '∞%'
