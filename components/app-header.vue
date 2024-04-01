@@ -1,0 +1,5 @@
+<template>
+  <header class="flex justify-between items-center">
+
+  </header>
+</template>
