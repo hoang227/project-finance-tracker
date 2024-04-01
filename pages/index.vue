@@ -21,24 +21,24 @@
     />
     <Trend
       color="green"
-      title="income"
+      title="expense"
       :amount="4000"
-      :last-amount="3000"
+      :last-amount="5000"
       :loading="false"
     />
     <Trend
       color="red"
-      title="income"
+      title="investment"
       :amount="4000"
-      :last-amount="3000"
+      :last-amount="2000"
       :loading="false"
     />
     <Trend
       color="red"
-      title="income"
+      title="savings"
       :amount="4000"
-      :last-amount="3000"
-      :loading="true"
+      :last-amount="100"
+      :loading="false"
     />
   </section>
 </template>
