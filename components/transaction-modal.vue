@@ -82,6 +82,7 @@
 
 <script setup>
 import { categories, types } from '~/constants'
+import { z } from 'zod'
 const props = defineProps({
   modelValue: Boolean
 })
