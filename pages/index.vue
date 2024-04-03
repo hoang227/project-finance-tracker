@@ -49,14 +49,7 @@
         this period</div>
     </div>
     <div>
-      <UModal v-model="isOpen">
-        <UCard>
-          <template #header>
-            add transaction
-          </template>
-          <div>hello</div>
-        </UCard>
-      </UModal>
+      <TransactionModal v-model="isOpen" />
       <UButton
         icon="i-heroicons-plus-circle"
         color="white"
@@ -95,7 +88,6 @@
 </template>
 
 <script setup>
-import { compile } from 'vue';
 import { transactionViewOptions } from '~/constants'
 const selectedView = ref(transactionViewOptions[1])
 
