@@ -17,28 +17,28 @@
       title="income"
       :amount="4000"
       :last-amount="3000"
-      :loading="false"
+      :loading="isLoading"
     />
     <Trend
       color="green"
       title="expense"
       :amount="4000"
       :last-amount="5000"
-      :loading="false"
+      :loading="isLoading"
     />
     <Trend
       color="red"
       title="investment"
       :amount="4000"
       :last-amount="2000"
-      :loading="false"
+      :loading="isLoading"
     />
     <Trend
       color="red"
       title="savings"
       :amount="4000"
       :last-amount="100"
-      :loading="false"
+      :loading="isLoading"
     />
   </section>
   <section>
@@ -55,6 +55,7 @@
         v-for="transaction in transactionsOnDay"
         :key="transaction.id"
         :transaction="transaction"
+        @deleted="refreshTransactions()"
       />
     </div>
   </section>
@@ -65,20 +66,31 @@ import { transactionViewOptions } from '~/constants'
 const selectedView = ref(transactionViewOptions[1])
 
 const supabase = useSupabaseClient()
-
 const transactions = ref([])
+const isLoading = ref(false)
 
-const { data, pending } = await useAsyncData('transactions', async () => {
-  const { data, error } = await supabase
-    .from('transactions')
-    .select()
+const fetchTransactions = async () => {
+  isLoading.value = true
+  try {
+    const { data } = await useAsyncData('transactions', async () => {
+      const { data, error } = await supabase
+        .from('transactions')
+        .select()
 
-  if (error) return []
+      if (error) return []
 
-  return data
-})
+      return data
+    })
 
-transactions.value = data.value
+    return data.value
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const refreshTransactions = async () => transactions.value = await fetchTransactions()
+
+await refreshTransactions()
 
 const transactionsGroupedByDate = computed(() => {
   let grouped = {}
