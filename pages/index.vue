@@ -9,10 +9,10 @@
   </section>
 
   <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 sm:gap-16 mb-10">
-    <Trend color="green" title="income" :amount="incomeTotal" :last-amount="3000" :loading="isLoading" />
-    <Trend color="red" title="expense" :amount="expenseTotal" :last-amount="20000" :loading="isLoading" />
-    <Trend color="red" title="investment" :amount="4000" :last-amount="2000" :loading="isLoading" />
-    <Trend color="red" title="savings" :amount="4000" :last-amount="100" :loading="isLo ading" />
+    <Trend color="green" title="income" :amount="incomeTotal" :last-amount="3000" :loading="pending" />
+    <Trend color="red" title="expense" :amount="expenseTotal" :last-amount="20000" :loading="pending" />
+    <Trend color="red" title="investment" :amount="4000" :last-amount="2000" :loading="pending" />
+    <Trend color="red" title="savings" :amount="4000" :last-amount="100" :loading="pending" />
   </section>
 
   <section class="flex justify-between mb-10">
@@ -22,16 +22,16 @@
         this period</div>
     </div>
     <div>
-      <TransactionModal v-model="isOpen" @saved="refreshTransactions()" />
+      <TransactionModal v-model="isOpen" @saved="refresh()" />
       <UButton icon="i-heroicons-plus-circle" color="white" variant="solid" label="add" @click="isOpen = true" />
     </div>
   </section>
 
   <section v-if=" !isLoading ">
-    <div v-for="(transactionsOnDay, date) in transactionsGroupedByDate" :key="date" class="mb-8">
+    <div v-for="(transactionsOnDay, date) in byDate" :key="date" class="mb-8">
       <DailyTransactionSummary :date="date" :transactions=" transactionsOnDay" />
       <Transaction v-for="transaction in transactionsOnDay" :key="transaction.id" :transaction="transaction"
-        @deleted="refreshTransactions()" />
+        @deleted="refresh()" />
     </div>
   </section>
   <section v-else>
@@ -56,6 +56,6 @@ const { pending, refresh, transactions: {
   }
 } } = useFetchTransaction()
 
-await refreshTransactions()
+await refresh()
 
 </script>
