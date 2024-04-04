@@ -22,6 +22,10 @@ useHead({
     }
   ]
 })
+
+const color = useColorMode()
+
+color.preference = 'dark'
 </script>
 
 <style>
