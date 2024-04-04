@@ -92,6 +92,7 @@
 
 <script setup>
 import { transactionViewOptions } from '~/constants'
+
 const selectedView = ref(transactionViewOptions[1])
 
 const supabase = useSupabaseClient()
@@ -144,7 +145,7 @@ const transactionsGroupedByDate = computed(() => {
   let grouped = {}
   for (const transaction of transactions.value) {
 
-    const date = getDateTime(transaction.created_at)
+    const date = useDateTime(transaction.created_at)
 
     if (!grouped[date]) {
       grouped[date] = []
