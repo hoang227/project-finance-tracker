@@ -3,10 +3,10 @@ export const useCurrency = (amount) => {
     return new Intl.NumberFormat("en-IN", {
       style: "currency",
       currency: "SGD",
-    }).format(isRef(amount) ? amount.value : amount);
-  });
+    }).format(isRef(amount) ? amount.value : amount)
+  })
 
   return {
     currency,
-  };
-};
+  }
+}
