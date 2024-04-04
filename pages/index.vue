@@ -27,7 +27,7 @@
     </div>
   </section>
 
-  <section v-if=" !isLoading ">
+  <section v-if=" !pending ">
     <div v-for="(transactionsOnDay, date) in byDate" :key="date" class="mb-8">
       <DailyTransactionSummary :date="date" :transactions=" transactionsOnDay" />
       <Transaction v-for="transaction in transactionsOnDay" :key="transaction.id" :transaction="transaction"
@@ -43,8 +43,8 @@
 import { transactionViewOptions } from '~/constants'
 
 const selectedView = ref(transactionViewOptions[1])
-
 const isOpen = ref(false)
+const dates = useSelectedTimePeriod(selectedView)
 
 const { pending, refresh, transactions: {
   incomeCount,
