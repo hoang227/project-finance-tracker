@@ -29,7 +29,9 @@
 </template>
 
 <script setup>
+const supabase = useSupabaseClient()
 const user = useSupabaseUser()
+console.log(user)
 const items = [
   [{
     label: user.value?.email,
