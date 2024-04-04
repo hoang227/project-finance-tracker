@@ -54,12 +54,12 @@ const { pending, refresh, transactions: {
   grouped: {
     byDate
   }
-} } = useFetchTransaction(current)
+} } = useFetchTransactions(current)
 await refresh()
 
 const { refresh: refreshPrevious, transactions: {
   incomeCount: prevIncomeTotal,
   incomeTotal: prevExpenseTotal,
-} } = useFetchTransaction(previous)
-//await refreshPrevious()
+} } = useFetchTransactions(previous)
+await refresh()
 </script>
