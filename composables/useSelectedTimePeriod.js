@@ -7,17 +7,17 @@ export const useSelectedTimePeriod = (period) => {
         case 'yearly':
           return {
             from: startOfYear(new Date()),
-            to: new Date()
+            to: endOfYear(new Date())
           }
         case 'monthly':
           return {
             from: startOfMonth(new Date()),
-            to: new Date()
+            to: endOfMonth(new Date())
           }
         case 'daily':
           return {
             from: startOfDay(new Date()),
-            to: new Date()
+            to: endOfDay(new Date())
           }
       }
     }
