@@ -9,8 +9,8 @@
   </section>
 
   <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 sm:gap-16 mb-10">
-    <Trend color="green" title="income" :amount="incomeTotal" :last-amount="3000" :loading="pending" />
-    <Trend color="red" title="expense" :amount="expenseTotal" :last-amount="20000" :loading="pending" />
+    <Trend color="green" title="income" :amount="incomeTotal" :last-amount="prevIncomeTotal" :loading="pending" />
+    <Trend color="red" title="expense" :amount="expenseTotal" :last-amount="prevExpenseTotal" :loading="pending" />
     <Trend color="red" title="investment" :amount="4000" :last-amount="2000" :loading="pending" />
     <Trend color="red" title="savings" :amount="4000" :last-amount="100" :loading="pending" />
   </section>
@@ -55,7 +55,11 @@ const { pending, refresh, transactions: {
     byDate
   }
 } } = useFetchTransaction(current)
-
 await refresh()
 
+const { refresh: refreshPrevious, transactions: {
+  incomeCount: prevIncomeTotal,
+  incomeTotal: prevExpenseTotal,
+} } = useFetchTransaction(previous)
+//await refreshPrevious()
 </script>
