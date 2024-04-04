@@ -140,13 +140,17 @@ const save = async () => {
       })
       isOpen.value = false
       emit('saved')
+      return
     }
+    throw (error)
   } catch (error) {
     toast.add({
       title: 'transaction not saved',
       description: error.message,
-      icon: 'i-heroicons-exclamation-circle'
+      icon: 'i-heroicons-exclamation-circle',
+      color: 'red'
     })
+
   } finally {
     isLoading.value = false
   }
