@@ -4,84 +4,28 @@
       <template #header>
         add transaction
       </template>
-      <UForm
-        :state="state"
-        :schema="schema"
-        ref="form"
-        @submit="save"
-      >
-        <UFormGroup
-          label="transaction type"
-          :required="true"
-          name="type"
-          class="mb-4"
-        >
-          <USelect
-            placeholder="select transaction type"
-            :options="types"
-            v-model="state.type"
-          />
+      <UForm :state="state" :schema="schema" ref="form" @submit="save">
+        <UFormGroup label="transaction type" :required="true" name="type" class="mb-4">
+          <USelect placeholder="select transaction type" :options="types" v-model="state.type" />
         </UFormGroup>
 
-        <UFormGroup
-          label="amount"
-          :required="true"
-          name="amount"
-          class="mb-4"
-        >
-          <UInput
-            type="number"
-            placeholder="amount"
-            v-model.number="state.amount"
-          />
+        <UFormGroup label="amount" :required="true" name="amount" class="mb-4">
+          <UInput type="number" placeholder="amount" v-model.number="state.amount" />
         </UFormGroup>
 
-        <UFormGroup
-          label="date"
-          :required="true"
-          name="created_at"
-          class="mb-4"
-        >
-          <UInput
-            type="date"
-            icon="i-heroicons-calendar-days-20-solid"
-            v-model="state.created_at"
-          />
+        <UFormGroup label="date" :required="true" name="created_at" class="mb-4">
+          <UInput type="date" icon="i-heroicons-calendar-days-20-solid" v-model="state.created_at" />
         </UFormGroup>
 
-        <UFormGroup
-          label="description"
-          hint="optional"
-          name="description"
-          class="mb-4"
-        >
-          <UInput
-            placeholder="description"
-            v-model="state.description"
-          />
+        <UFormGroup label="description" hint="optional" name="description" class="mb-4">
+          <UInput placeholder="description" v-model="state.description" />
         </UFormGroup>
 
-        <UFormGroup
-          label="category"
-          :required="true"
-          name="category"
-          class="mb-4"
-          v-if="state.type === 'expense'"
-        >
-          <USelect
-            placeholder="select category"
-            :options="categories"
-            v-model="state.category"
-          />
+        <UFormGroup label="category" :required="true" name="category" class="mb-4" v-if="state.type === 'expense'">
+          <USelect placeholder="select category" :options="categories" v-model="state.category" />
         </UFormGroup>
 
-        <UButton
-          type="submit"
-          color="black"
-          variant="solid"
-          label="save"
-          :loading="isLoading"
-        />
+        <UButton type="submit" color="black" variant="solid" label="save" :loading="isLoading" />
       </UForm>
     </UCard>
   </UModal>

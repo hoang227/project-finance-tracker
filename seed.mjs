@@ -1,6 +1,6 @@
-import { createClient } from "@supabase/supabase-js";
-import { faker } from "@faker-js/faker";
-import "dotenv/config";
+import { createClient } from "@supabase/supabase-js"
+import { faker } from "@faker-js/faker"
+import "dotenv/config"
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
@@ -8,22 +8,22 @@ const supabase = createClient(
   {
     auth: { persistSession: false },
   }
-);
-const categories = ["food", "rent", "car", "entertainment", "transport"];
+)
+const categories = ["food", "rent", "car", "entertainment", "transport"]
 
 async function seedTransactions() {
   // Delete existing data
   const { error: deleteError } = await supabase
     .from("transactions")
     .delete()
-    .gte("id", 0);
+    .gte("id", 0)
 
   if (deleteError) {
-    console.error("Error deleting existing data:", deleteError);
-    return;
+    console.error("Error deleting existing data:", deleteError)
+    return
   }
 
-  let transactions = [];
+  let transactions = []
 
   for (
     let year = new Date().getFullYear();
@@ -35,34 +35,34 @@ async function seedTransactions() {
         year,
         faker.number.int({ min: 0, max: 11 }),
         faker.number.int({ min: 1, max: 28 })
-      );
+      )
 
-      let type, category;
-      const typeBias = Math.random();
+      let type, category
+      const typeBias = Math.random()
 
       if (typeBias < 0.85) {
-        type = "expense";
-        category = faker.helpers.arrayElement(categories); // Category only for 'Expense'
+        type = "expense"
+        category = faker.helpers.arrayElement(categories) // Category only for 'Expense'
       } else if (typeBias < 0.95) {
-        type = "income";
+        type = "income"
       } else {
-        type = faker.helpers.arrayElement(["saving", "investment"]);
+        type = faker.helpers.arrayElement(["saving", "investment"])
       }
 
-      let amount;
+      let amount
       switch (type) {
         case "income":
-          amount = faker.number.int({ min: 2000, max: 5000 });
-          break;
+          amount = faker.number.int({ min: 2000, max: 5000 })
+          break
         case "expense":
-          amount = faker.number.int({ min: 100, max: 1000 });
-          break;
+          amount = faker.number.int({ min: 100, max: 1000 })
+          break
         case "saving":
         case "investment":
-          amount = faker.number.int({ min: 5000, max: 10000 });
-          break;
+          amount = faker.number.int({ min: 5000, max: 10000 })
+          break
         default:
-          amount = 0;
+          amount = 0
       }
 
       transactions.push({
@@ -71,19 +71,19 @@ async function seedTransactions() {
         type,
         description: faker.lorem.sentence(),
         category: type === "expense" ? category : null, // Category only for 'Expense'
-      });
+      })
     }
   }
 
   const { error: insertError } = await supabase
     .from("transactions")
-    .upsert(transactions);
+    .upsert(transactions)
 
   if (insertError) {
-    console.error("Error inserting data:", insertError);
+    console.error("Error inserting data:", insertError)
   } else {
-    console.log("Data inserted successfully.");
+    console.log("Data inserted successfully.")
   }
 }
 
-seedTransactions().catch(console.error);
+seedTransactions().catch(console.error)
