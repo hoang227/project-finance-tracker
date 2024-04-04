@@ -9,11 +9,5 @@
 </template>
 
 <script setup>
-const user = useSupabaseUser()
-
-watch(user, (user) => {
-  if (user) {
-    return navigateTo('/')
-  }
-}, { immediate: true })
+useRedirectIfAuthenticated()
 </script>
