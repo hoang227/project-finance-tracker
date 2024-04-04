@@ -8,7 +8,7 @@
         :state="state"
         :schema="schema"
         ref="form"
-        @submit.prevent="save"
+        @submit="save"
       >
         <UFormGroup
           label="transaction type"
@@ -80,6 +80,7 @@
           color="black"
           variant="solid"
           label="save"
+          :loading="isLoading"
         />
       </UForm>
     </UCard>
@@ -92,7 +93,7 @@ import { z } from 'zod'
 const props = defineProps({
   modelValue: Boolean
 })
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'saved'])
 
 const defaultSchema = z.object({
   created_at: z.string(),
@@ -120,11 +121,35 @@ const schema = z.intersection(
 )
 
 const form = ref()
+const isLoading = ref(false)
+const supabase = useSupabaseClient()
+const toast = useToast()
 
 const save = async () => {
   if (form.value.errors.length) return
 
-  // store into supabase
+  isLoading.value = true
+  try {
+    const { error } = await supabase.from('transactions')
+      .upsert({ ...state.value })
+
+    if (!error) {
+      toast.add({
+        title: 'transaction-saved',
+        icon: 'i-heroicons-check-circle',
+      })
+      isOpen.value = false
+      emit('saved')
+    }
+  } catch (error) {
+    toast.add({
+      title: 'transaction not saved',
+      description: error.message,
+      icon: 'i-heroicons-exclamation-circle'
+    })
+  } finally {
+    isLoading.value = false
+  }
 }
 
 const initialState = {

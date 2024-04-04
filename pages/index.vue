@@ -49,7 +49,10 @@
         this period</div>
     </div>
     <div>
-      <TransactionModal v-model="isOpen" />
+      <TransactionModal
+        v-model="isOpen"
+        @saved="refreshTransactions()"
+      />
       <UButton
         icon="i-heroicons-plus-circle"
         color="white"
@@ -140,7 +143,9 @@ await refreshTransactions()
 const transactionsGroupedByDate = computed(() => {
   let grouped = {}
   for (const transaction of transactions.value) {
-    const date = new Date(transaction.created_at).toISOString().split('T')[0]
+
+    const date = getDateTime(transaction.created_at)
+
     if (!grouped[date]) {
       grouped[date] = []
     }
