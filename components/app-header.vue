@@ -39,7 +39,7 @@ const items = [
   }], [{
     label: 'settings',
     icon: 'i-heroicons-cog-8-tooth',
-    click: () => console.log('Link to settings in the future')
+    click: () => navigateTo('/settings/profile')
   }, {
     label: 'sign out',
     icon: 'i-heroicons-arrow-left-on-rectangle',
