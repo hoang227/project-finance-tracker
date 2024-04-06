@@ -9,7 +9,7 @@ export const useAvatarUrl = () => {
       .from("avatars")
       .getPublicUrl(user.value?.user_metadata?.avatar_url)
 
-    return data
+    return data.publicUrl
   }
 
   const url = ref(getPublicUrl())
