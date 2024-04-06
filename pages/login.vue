@@ -31,7 +31,7 @@
 const success = ref(false)
 const email = ref('')
 const pending = ref(false)
-const toast = useAppToast()
+const { toastError } = useAppToast()
 const supabase = useSupabaseClient()
 
 useRedirectIfAuthenticated()
