@@ -31,21 +31,21 @@
 <script setup>
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
-console.log(user)
+
 const items = [
   [{
     label: user.value?.email,
     slot: 'account',
     disabled: true
   }], [{
-    label: 'Settings',
+    label: 'settings',
     icon: 'i-heroicons-cog-8-tooth',
-    onClick: () => console.log('Link to settings in the future')
+    click: () => console.log('Link to settings in the future')
   }, {
-    label: 'Sign out',
+    label: 'sign out',
     icon: 'i-heroicons-arrow-left-on-rectangle',
-    onClick: () => {
-      supabase.auth.signOut()
+    click: async () => {
+      await supabase.auth.signOut()
       return navigateTo('/login')
     }
   }]

@@ -1,27 +1,27 @@
 <template>
   <UCard v-if="!success">
     <template #header>
-      sign-in to finance tracker
+      Sign-in to Finance Tracker
     </template>
 
     <form @submit.prevent="handleLogin">
-      <UFormGroup label="email" name="email" class="mb-4" :required="true" 
-        help="you will receive an email with the confirmation link">
-        <UInput type="email" placeholder="email" required v-model="email"/>
+      <UFormGroup label="Email" name="email" class="mb-4" :required="true"
+        help="You will receive an email with the confirmation link">
+        <UInput type="email" placeholder="Email" required v-model="email" />
       </UFormGroup>
 
-      <UButton type="submit" variant="solid" color="black" :loading="pending" :disabled="pending">sign-in</UButton>
+      <UButton type="submit" variant="solid" color="black" :loading="pending" :disabled="pending">Sign-in</UButton>
     </form>
   </UCard>
   <UCard v-else>
     <template #header>
-      email has been sent
+      Email has been sent
     </template>
 
     <div class="text-center">
-      <p class="mb-4">we have sent and email to <strong>{{ email }}</strong> with a link to sign-in</p>
+      <p class="mb-4">We have sent an email to <strong>{{ email }}</strong> with a link to sign-in.</p>
       <p>
-        <strong>important: </strong>the link will expire in 5 minutes
+        <strong>Important:</strong> The link will expire in 5 minutes.
       </p>
     </div>
   </UCard>
@@ -34,19 +34,22 @@ const pending = ref(false)
 const toast = useToast()
 const supabase = useSupabaseClient()
 
+useRedirectIfAuthenticated()
+
 const handleLogin = async () => {
   pending.value = true
+
   try {
     const { error } = await supabase.auth.signInWithOtp({
       email: email.value,
       options: {
-        emailRedirectTo: 'http://localhost:3000/confirm'
+        emailRedirectTo: `http://localhost:3000/confirm`
       }
     })
 
     if (error) {
       toast.add({
-        title: 'error authenticating',
+        title: 'Error authenticating',
         icon: 'i-heroicons-exclamation-circle',
         description: error.message,
         color: 'red'
