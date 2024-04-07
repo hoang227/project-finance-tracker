@@ -46,7 +46,7 @@ const saveAvatar = async () => {
   try {
     uploading.value = true
     // 1. Grab the current avatar URL
-    const currentAvatarUrl = user.value.user_metadata?.avatar_url
+    const currentAvatarUrl = user.value?.user_metadata?.avatar_url
     // 2. Upload the image to avatars bucket
     const { error } = await supabase.storage.from('avatars')
       .upload(fileName, file)

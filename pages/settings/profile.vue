@@ -22,8 +22,8 @@ const { toastSuccess, toastError } = useAppToast()
 const pending = ref(false)
 
 const state = ref({
-  name: user.value.user_metadata?.full_name,
-  email: user.value.email
+  name: user.value?.user_metadata?.full_name,
+  email: user.value?.email
 })
 
 const schema = z.object({

@@ -17,7 +17,7 @@ const user = useSupabaseUser()
 const { toastSuccess, toastError } = useAppToast()
 const pending = ref(false)
 const state = ref({
-  transactionView: user.value.user_metadata?.transaction_view ?? transactionViewOptions[1]
+  transactionView: user.value?.user_metadata?.transaction_view ?? transactionViewOptions[1]
 })
 const schema = z.object({
   transactionView: z.enum(transactionViewOptions)
