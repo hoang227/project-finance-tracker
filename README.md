@@ -1,4 +1,4 @@
-# portfolio - Nuxt 3 and Tailwind CSS
+# finance-tracker - Nuxt 3 and Tailwind CSS
 
 [![Development Status](https://img.shields.io/badge/status-complete-brightgreen)](https://github.com/hoang227/project-nuxt3-basics-portfolio)
 
